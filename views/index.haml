@@ -1,8 +1,40 @@
-!!!
 %html
   %head
-    %title Todos
+    %meta{"charset" => "utf-8"}
+    %title=title
+    %link{"rel" => "stylesheet", "href" => "css/todos.css"}
+    %script{"src" => "js/lib/jquery-1.9.1.js"}
+    %script{"src" => "js/lib/json2.js"}
+    %script{"src" => "js/lib/underscore.js"}
+    %script{"src" => "js/lib/backbone.js"}
+    %script{"src" => "js/lib/backbone.localStorage.js"}
+    %script{"src" => "js/todos.js"}
   %body
-    #header
-    %h1 Todos
-    #content
+    %div#todoapp
+      %header
+        %h1
+          Todos
+        %input#new-todo{"placeholder" => "What needs to be done?", "type" => "text", "size" => "128"}/
+      %section#main{"style" => "display:none"}
+        %input#toggle-all{"type" => "checkbox"}
+          %label{"for" => "toggle-all"}
+            Mark all as complete
+          %ul#todo-list
+      %footer{"style" => "display:none"}
+        %a#clear-completed
+          Clear completed
+        %div#todo-count
+        
+  %script#item-template{"type" => "text/template"}
+    %div.view
+      <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %>
+      <label><%- title %></label>
+      %a.destroy
+
+  %script#stats-template{"type" => "text/template"}
+    <% if (done) { %>
+    %a#clear-completed{"href" => "#"}
+      Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %>
+    <% } %>
+    %div.todo-count
+      <b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left

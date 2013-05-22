@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # todos
 まだ、未完成のため利用できません。
 
@@ -33,3 +34,7 @@ group :development do
 end
 </core>
 </pre>
+=======
+todos
+=====
+>>>>>>> ca142b7ab6eda5141a5c2cf2f754f695d8a2a45a
