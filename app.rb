@@ -30,7 +30,9 @@ post '/api/:thing' do
 end
 
 delete '/api/:thing/:id' do
-  db.collection(params[:thing]).remove('id' => tobson_id(params[:id]))
+  result = db.collection(params[:thing]).remove('id' => tobsonid(params[:id]))
+  logger.error(result)
+  result.to_s
 end
 
 put '/api/:thing/:id' do
@@ -38,7 +40,7 @@ put '/api/:thing/:id' do
 end
 
 def tobsonid(id)
-  BSON::ObjectId.fromstring(id)
+  BSON::ObjectId.from_string(id)
 end
 
 def frombsonid(obj)
