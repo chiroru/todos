@@ -30,13 +30,12 @@ post '/api/:thing' do
 end
 
 delete '/api/:thing/:id' do
-  result = db.collection(params[:thing]).remove('id' => tobsonid(params[:id]))
-  logger.error(result)
-  result.to_s
+  db.collection(params[:thing]).remove('_id' => tobsonid(params[:id])).to_s
 end
 
 put '/api/:thing/:id' do
-  db.collection(params[:thing]).update({'id' => tobsonid(params[:id])}, {'$set' => JSON.parse(request.body.read.to_s).reject{|k,v| k == 'id'}})
+  #db.collection(params[:thing]).update({'id' => tobsonid(params[:id])}, {'$set' => JSON.parse(request.body.read.to_s).reject{|k,v| k == 'id'}})
+  db.collection(params[:thing]).update({'_id' => tobsonid(params[:id])}, {'$set' => JSON.parse(request.body.read.to_s).reject{|k,v| k == '_id'}}).to_s
 end
 
 def tobsonid(id)
